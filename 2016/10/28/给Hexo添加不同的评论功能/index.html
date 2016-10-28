@@ -1,0 +1,605 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。  闲话不多说，开始写正文。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给Hexo添加不同的评论功能">
+<meta property="og:url" content="http://www.CodeCRH.com/2016/10/28/给Hexo添加不同的评论功能/index.html">
+<meta property="og:site_name" content="残心">
+<meta property="og:description" content="例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。  闲话不多说，开始写正文。">
+<meta property="og:updated_time" content="2016-10-28T08:16:05.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给Hexo添加不同的评论功能">
+<meta name="twitter:description" content="例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。  闲话不多说，开始写正文。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.CodeCRH.com/2016/10/28/给Hexo添加不同的评论功能/"/>
+
+
+  <title> 给Hexo添加不同的评论功能 | 残心 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">残心</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">You can (not) override</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+            日程
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                给Hexo添加不同的评论功能
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-28T15:24:26+08:00" content="2016-10-28">
+              2016-10-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>  例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。<br>  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。<br>  闲话不多说，开始写正文。</p>
+<p>  ##首先，我们要谈一下，为什么要自定义评论。<br>  事实上, Hexo 的 NexT 主题已经集成了多说评论，这个多说评论。根据一些用户的使用反馈，会去收集用户的文章。虽然说官方对于这点也不避讳，写在用户协议之中，但是我个人还是蛮反感的。而至于 disqus 在中华人民共和国（港澳台除外）地区似乎就是不存在的……而且，大家千篇一律的使用多说评论，似乎也是太单调了，至少我随便搜索了一下文章，几乎都是使用多说评论的，毫无个性。</p>
+<p>  ##说了为什么，接下来就该谈谈怎么做。<br>  首先，我本人的博客，使用了网易推出的“网易云跟帖”，其他的评论插入 Hexo 的方式也大同小异。</p>
+<p>  ###第一步<br>    在网易云跟帖注册一个网易账号。网易云跟帖的网站地址是：</p>
+<pre><code>``` bash
+https://gentie.163.com/index.html
+``` 
+多说两句，目前，网易云跟帖根据他的网站图标来看，还尚在Beta阶段，所以是否使用网易云评论这个功能，还请自己斟酌。
+</code></pre><p>  ###第二步<br>  登录之后在右上角会出现后台管理<br>  <a href="http://image18-c.poco.cn/mypoco/myphoto/20161028/15/5640593020161028155552087.png" target="_blank" rel="external">http://image18-c.poco.cn/mypoco/myphoto/20161028/15/5640593020161028155552087.png</a><br>  填写好相关的站点信息和云跟帖配置之后就可以获取代码了</p>
+<p>  ###第三步<br>  我使用的是NexT主题，如果不是使用该主题的应该也会有对应的文章页layout），下面就以我使用的 NexT 主题为例<br>  修改 Hexo 的评论页面，具体页面就是在 Hexo根目录/themes/你的主题名称，我的是NexT/layout 文件夹下的 post.swig 页面中,将获取到的代码插入</p>
+<pre><code class="bash">&lt;div id=<span class="string">"posts"</span> class=<span class="string">"posts-expand"</span>&gt;
+</code></pre>
+<p>  这个div结束标签的下一行<br>  为了代码看上去不乱，可以和我一样将 JS 放到</p>
+<pre><code class="bash">{% include '_scripts/pages/post-details.swig' %}
+</code></pre>
+<p>  这一行代码之后</p>
+<p>  然后，重新生成一下就大功告成了！</p>
+<p>  在网易云跟帖的界面里可以进行云跟帖的审核<br>  <a href="http://image18-c.poco.cn/mypoco/myphoto/20161028/16/5640593020161028160811097.png" target="_blank" rel="external">http://image18-c.poco.cn/mypoco/myphoto/20161028/16/5640593020161028160811097.png</a><br>  这里就不赘述了</p>
+<p>  如果喜欢这篇文章，可以在注明转发自www.codecrh.com的情况下转发这篇文章。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/26/浴火重生/" rel="next" title="浴火重生">
+                <i class="fa fa-chevron-left"></i> 浴火重生
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/logo.png"
+               alt="CodeCRH" />
+          <p class="site-author-name" itemprop="name">CodeCRH</p>
+          <p class="site-description motion-element" itemprop="description">人总是一面苟活着，一面织就神话</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/codecrh" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://music.163.com/#/user/fans?id=84292944" target="_blank" title="Muisc163">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Muisc163
+                </a>
+              </span>
+            
+          
+        </div>
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&id=557891&auto=0&height=66"></iframe>
+		
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CodeCRH</span>
+</div>
+
+<div class="powered-by">
+  基于 <a class="theme-link" href="https://hexo.io">Hexo</a> 二次开发
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+  
+	<script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+	<script>
+		var cloudTieConfig = {
+		  url: document.location.href, 
+		  sourceId: "",
+		  productKey: "47e8fcfca74b4b7cb0f25de66661b33a",
+		  target: "cloud-tie-wrapper"
+		};
+		var yunManualLoad = true;
+		Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+	</script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
