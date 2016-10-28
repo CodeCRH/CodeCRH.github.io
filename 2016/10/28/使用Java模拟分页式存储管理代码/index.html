@@ -1,0 +1,830 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="这个代码是在温习操作系统时编写的，主要用于通过文字来模拟操作系统中的分页式存储。该项目一共有两个类构成：MemoryBlock 类 和 用于运行的 Run 类（主函数类）
+代码如下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Java模拟分页式存储管理代码">
+<meta property="og:url" content="http://www.CodeCRH.com/2016/10/28/使用Java模拟分页式存储管理代码/index.html">
+<meta property="og:site_name" content="残心">
+<meta property="og:description" content="这个代码是在温习操作系统时编写的，主要用于通过文字来模拟操作系统中的分页式存储。该项目一共有两个类构成：MemoryBlock 类 和 用于运行的 Run 类（主函数类）
+代码如下">
+<meta property="og:updated_time" content="2016-10-28T13:28:02.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Java模拟分页式存储管理代码">
+<meta name="twitter:description" content="这个代码是在温习操作系统时编写的，主要用于通过文字来模拟操作系统中的分页式存储。该项目一共有两个类构成：MemoryBlock 类 和 用于运行的 Run 类（主函数类）
+代码如下">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://www.CodeCRH.com/2016/10/28/使用Java模拟分页式存储管理代码/"/>
+
+
+  <title> 使用Java模拟分页式存储管理代码 | 残心 </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">残心</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">You can (not) override</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用Java模拟分页式存储管理代码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-28T21:20:10+08:00" content="2016-10-28">
+              2016-10-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这个代码是在温习操作系统时编写的，主要用于通过文字来模拟操作系统中的分页式存储。<br>该项目一共有两个类构成：<br>MemoryBlock 类 和 用于运行的 Run 类（主函数类）</p>
+<p>代码如下<br><a id="more"></a></p>
+<pre><code class="bash">MemoryBlock 类：
+
+public class MemoryBlock
+{
+    static int initsize = 2048;//一块的大小
+    private String name;//块的名字
+    private int size;//一块用了多少
+    private String work;//作业名
+    private int block;//块号
+    private int page;//页号
+
+    public String <span class="function"><span class="title">getName</span></span>() {
+        <span class="built_in">return</span> name;
+    }
+
+    public void <span class="built_in">set</span>Name(String name) {
+        this.name = name;
+    }
+
+    public int <span class="function"><span class="title">getSize</span></span>() {
+        <span class="built_in">return</span> size;
+    }
+
+    public void <span class="built_in">set</span>Size(int size) {
+        this.size = size;
+    }
+
+    public <span class="function"><span class="title">MemoryBlock</span></span>(){}
+
+    public MemoryBlock(String name,int size,int block)
+    {
+        this.name = name;
+        this.size = size;
+        this.block = block;
+    }
+
+    public String <span class="function"><span class="title">getWork</span></span>() {
+        <span class="built_in">return</span> work;
+    }
+
+    public void <span class="built_in">set</span>Work(String work) {
+        this.work = work;
+    }
+
+    public int <span class="function"><span class="title">getBlock</span></span>() {
+        <span class="built_in">return</span> block;
+    }
+
+    public void <span class="built_in">set</span>Block(int block) {
+        this.block = block;
+    }
+
+    public int <span class="function"><span class="title">getPage</span></span>() {
+        <span class="built_in">return</span> page;
+    }
+
+    public void <span class="built_in">set</span>Page(int page) {
+        this.page = page;
+    }
+
+    public void <span class="function"><span class="title">show</span></span>()
+    {
+        <span class="keyword">if</span>(this.size != 0)
+        {
+            System.out.println(work + <span class="string">",页号="</span> + page + <span class="string">",块号="</span> + block + <span class="string">",占用空间="</span> +size);
+        }
+        <span class="keyword">else</span>
+        {
+            System.out.println(name);
+        }
+    }
+}
+</code></pre>
+<p>Run 类（主函数类）</p>
+<pre><code class="bash">import java.util.*;
+
+public class Run 
+{
+    public static void main(String[] args) 
+    {
+        int flag = 0;//标记已经使用了多少块
+        int work = 0;//作业编号
+        List list = new ArrayList&lt;MemoryBlock&gt;();
+        List indexof = new ArrayList();
+        <span class="keyword">for</span>(int i=0;i&lt;32;i++)
+        {
+            list.add(new MemoryBlock(<span class="string">"空闲块号"</span>+i,0,i));
+        }
+        try
+        {
+            <span class="keyword">while</span>(<span class="literal">true</span>)
+            {
+
+                System.out.println(<span class="string">"转载自 http://www.codecrh.com/"</span>);
+                MemoryBlock mb = new MemoryBlock();
+                <span class="keyword">for</span>(int i=0;i&lt;list.size();i++)
+                {
+                    mb = (MemoryBlock)list.get(i);
+                    mb.show();
+                }
+
+                System.out.println(<span class="string">"总块号"</span> + (list.size()-1) + <span class="string">","</span> + <span class="string">"已分配"</span> + flag + <span class="string">",剩余"</span> + (list.size()-flag) + <span class="string">",每块大小"</span> + mb.initsize);
+                System.out.println(<span class="string">"页式内存管理"</span>);
+                System.out.println(<span class="string">"1申请内存     2释放内存"</span>);
+
+
+                try
+                {
+                    Scanner sc = new Scanner(System.in);
+
+                    int input = sc.nextInt();
+                    switch (input) 
+                    {
+                        <span class="keyword">case</span> 1:
+                            System.out.println(<span class="string">"请输入申请内存的大小 (按0返回上一级):"</span>);
+                            int size = sc.nextInt();//申请内存的大小
+                            int count = size / mb.initsize;//计算需要的块数
+
+                            <span class="keyword">if</span>(size % mb.initsize != 0)//不是整倍数
+                            {
+                                <span class="keyword">if</span>(size &lt; mb.initsize)
+                                {
+                                    <span class="keyword">for</span>(int i=0;i&lt;list.size();i++)
+                                    {
+                                        mb = (MemoryBlock)list.get(i);
+                                        <span class="keyword">if</span>(mb.getSize() == 0)
+                                        {
+                                            mb = (MemoryBlock)list.get(i);
+                                            <span class="built_in">break</span>;
+                                        }
+                                    }
+
+                                    mb.setWork(<span class="string">"作业"</span> + work);
+                                    mb.setPage(0);
+                                    mb.setSize(size);
+                                    work++;
+                                    flag++;
+                                }
+                                <span class="keyword">else</span> <span class="keyword">if</span>((list.size()-flag)&gt;(count+1))//剩余空间足够
+                                {
+                                    //<span class="keyword">for</span>(int j=flag,i=0;i&lt;count;i++,j++)
+                                    //{
+                                        int jsq = 0;
+                                        <span class="keyword">for</span>(int s=0;s&lt;list.size();s++)
+                                        {
+                                            mb = (MemoryBlock)list.get(s);
+                                            <span class="keyword">if</span>(mb.getSize() == 0 &amp;&amp; jsq &lt; count)
+                                            {
+                                                mb = (MemoryBlock)list.get(s);
+                                                mb.setWork(<span class="string">"作业"</span> + work);
+                                                mb.setPage(jsq);
+                                                mb.setSize(2048);
+                                                jsq += 1;
+                                            }
+                                        }
+                                    //}
+                                    <span class="keyword">for</span>(int i=0;i&lt;list.size();i++)
+                                    {
+                                        mb = (MemoryBlock)list.get(i);
+                                        <span class="keyword">if</span>(mb.getSize() == 0)
+                                        {
+                                            mb = (MemoryBlock)list.get(i);
+                                            <span class="built_in">break</span>;
+                                        }
+                                    }
+                                    //mb = (MemoryBlock)list.get((flag + count));
+                                    mb.setWork(<span class="string">"作业"</span> + work);
+                                    mb.setPage(count);
+                                    mb.setSize(size % mb.initsize);
+                                    work++;
+                                    flag = flag + count + 1;
+                                    <span class="built_in">continue</span>;
+                                }
+                                <span class="keyword">else</span>
+                                {
+                                    System.out.println(<span class="string">"内存不足!!!"</span>);
+                                    System.out.println(<span class="string">"申请内存大小为"</span> + size + <span class="string">",但没有空间可分配,请重新输入"</span>);
+                                    <span class="built_in">continue</span>;
+                                }
+                            }
+                            <span class="keyword">else</span>//是整倍数
+                            {
+                                <span class="keyword">if</span>((list.size()-flag)&gt;count)//剩余空间足够
+                                {
+                                    //<span class="keyword">for</span>(int i=0;i&lt;count;i++)
+                                    //{
+                                        int jsq = 0;
+                                        <span class="keyword">for</span>(int j = 0;j&lt;list.size();j++)
+                                        {
+                                            mb = (MemoryBlock)list.get(j);
+                                            <span class="keyword">if</span>(mb.getSize() == 0 &amp;&amp; jsq &lt; count)
+                                            {
+                                                mb = (MemoryBlock)list.get(j);
+                                                mb.setWork(<span class="string">"作业"</span> + work);
+                                                mb.setPage(jsq-1);
+                                                mb.setSize(2048);
+                                                jsq++;
+                                            }
+                                        }
+
+
+                                    //}
+                                    work++;
+                                    flag = flag  + 1;
+                                }
+                                <span class="keyword">else</span>
+                                {
+                                    System.out.println(<span class="string">"内存不足!!!"</span>);
+                                    System.out.println(<span class="string">"申请内存大小为"</span> + size + <span class="string">",但没有空间可分配,请重新输入"</span>);
+                                    <span class="built_in">continue</span>;
+                                }
+                            }
+                            <span class="built_in">break</span>;
+                        <span class="keyword">case</span> 2:
+                            List list2 = new ArrayList();
+                            System.out.println(<span class="string">"请输入释放内存的作业名 (按x退出，按0返回上一级):"</span>);
+                            sc.nextLine();
+                            String name = sc.nextLine();
+                            <span class="keyword">for</span>(int i=0;i&lt;list.size();i++)
+                            {
+                                mb = (MemoryBlock)list.get(i);
+                                <span class="keyword">if</span>(name.equals(mb.getWork()))
+                                    list2.add(i);
+                            }
+                            <span class="keyword">for</span>(int i=0;i&lt;list2.size();i++)
+                            {
+                                int j =  (int)list2.get(i);
+                                mb = (MemoryBlock)list.get(j);
+                                mb.setWork(<span class="string">""</span>);
+                                mb.setSize(0);
+                                mb.setPage(0);
+                                flag--;
+                            }
+                            <span class="built_in">break</span>;
+                        default:
+                                <span class="built_in">break</span>;
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    <span class="built_in">continue</span>;
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println(<span class="string">"发生了意料之外的错误，程序关闭"</span>);
+        }
+
+    }
+}
+</code></pre>
+<p>  如果喜欢这篇文章，可以在注明转发自www.codecrh.com的情况下转发这篇文章。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/28/Apache-Tomcat实现同时运行JavaWeb和PHP/" rel="next" title="Apache通过反向代理Tomcat实现同时运行JavaWeb和PHP">
+                <i class="fa fa-chevron-left"></i> Apache通过反向代理Tomcat实现同时运行JavaWeb和PHP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/logo.png"
+               alt="CodeCRH" />
+          <p class="site-author-name" itemprop="name">CodeCRH</p>
+          <p class="site-description motion-element" itemprop="description">人总是一面苟活着，一面织就神话</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/codecrh" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://music.163.com/#/user/fans?id=84292944" target="_blank" title="Muisc163">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Muisc163
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jonpad.com.cn/" target="_blank" title="jonpad Blog">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  jonpad Blog
+                </a>
+              </span>
+            
+          
+        </div>
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="http://music.163.com/outchain/player?type=2&id=557891&auto=0&height=66"></iframe>
+		
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CodeCRH</span>
+</div>
+
+<div class="powered-by">
+  基于 <a class="theme-link" href="https://hexo.io">Hexo</a> 二次开发
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+  
+	<script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+	<script>
+		var cloudTieConfig = {
+		  url: document.location.href, 
+		  sourceId: "",
+		  productKey: "47e8fcfca74b4b7cb0f25de66661b33a",
+		  target: "cloud-tie-wrapper"
+		};
+		var yunManualLoad = true;
+		Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+	</script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
