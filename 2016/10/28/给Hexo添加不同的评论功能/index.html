@@ -66,7 +66,7 @@
 <meta property="og:description" content="例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。  闲话不多说，开始写正文。">
 <meta property="og:image" content="http://www.CodeCRH.com/uploads/background.png">
 <meta property="og:image" content="http://www.CodeCRH.com/uploads/talk.png">
-<meta property="og:updated_time" content="2016-10-28T08:53:20.953Z">
+<meta property="og:updated_time" content="2016-10-28T08:55:02.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="给Hexo添加不同的评论功能">
 <meta name="twitter:description" content="例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。  闲话不多说，开始写正文。">
@@ -268,7 +268,7 @@
 <h2 id="首先，我们要谈一下，为什么要自定义评论。"><a href="#首先，我们要谈一下，为什么要自定义评论。" class="headerlink" title="首先，我们要谈一下，为什么要自定义评论。"></a>首先，我们要谈一下，为什么要自定义评论。</h2><p>  事实上, Hexo 的 NexT 主题已经集成了多说评论，这个多说评论。根据一些用户的使用反馈，会去收集用户的文章。虽然说官方对于这点也不避讳，写在用户协议之中，但是我个人还是蛮反感的。而至于 disqus 在中华人民共和国（港澳台除外）地区似乎就是不存在的……而且，大家千篇一律的使用多说评论，似乎也是太单调了，至少我随便搜索了一下文章，几乎都是使用多说评论的，毫无个性。<br><a id="more"></a></p>
 <h2 id="说了为什么，接下来就该谈谈怎么做。"><a href="#说了为什么，接下来就该谈谈怎么做。" class="headerlink" title="说了为什么，接下来就该谈谈怎么做。"></a>说了为什么，接下来就该谈谈怎么做。</h2><p>  首先，我本人的博客，使用了网易推出的“网易云跟帖”，其他的评论插入 Hexo 的方式也大同小异</p>
 <h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><pre><code>在网易云跟帖注册一个网易账号。网易云跟帖的网站地址是
-[Generating](gentie.163.com/index.html)
+More info: [Writing](http://gentie.163.com/index.html)
 多说两句，目前，网易云跟帖根据他的网站图标来看，还尚在Beta阶段，所以是否使用网易云评论这个功能，还请自己斟酌。
 </code></pre><h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>  登录之后在右上角会出现后台管理<br>  <img src="/uploads/background.png" alt=""><br>  填写好相关的站点信息和云跟帖配置之后就可以获取代码了</p>
 <h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>  我使用的是NexT主题，如果不是使用该主题的应该也会有对应的文章页layout），下面就以我使用的 NexT 主题为例<br>  修改 Hexo 的评论页面，具体页面就是在 Hexo根目录/themes/你的主题名称，我的是NexT/layout 文件夹下的 post.swig 页面中,将获取到的代码插入</p>
