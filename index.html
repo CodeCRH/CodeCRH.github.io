@@ -224,7 +224,7 @@
               
                 
                 <a class="post-title-link" href="/2016/10/28/Apache-Tomcat实现同时运行JavaWeb和PHP/" itemprop="url">
-                  Apache+Tomcat实现同时运行JavaWeb和PHP
+                  Apache通过反向代理Tomcat实现同时运行JavaWeb和PHP
                 </a>
               
             
@@ -267,11 +267,9 @@
       
         
           <p>这篇文章上一个博客里我曾经写过，由于被墙了，所以重新写一遍吧。</p>
-<p>上一个VPS，采用的是 CentOS 6 的操作系统，因此，只写CentOS的方法。至于百度搜到遍地的方法，我相信知道些代码的人都知道国内那种搜索引擎搜索来搜索去都是Copy的结果，实际上是没有人真正自己试验过的。于是就变成了，很简单的事，被他们Copy而不加证实的代码越弄越糟，真的是不想吐槽了。<br>要做这件事，首先要安装</p>
-<h2 id="1-Apache"><a href="#1-Apache" class="headerlink" title="1 Apache"></a>1 Apache</h2><h2 id="2-Tomcat"><a href="#2-Tomcat" class="headerlink" title="2 Tomcat"></a>2 Tomcat</h2><h2 id="3-JavaJDK-Tomcat服务要用到"><a href="#3-JavaJDK-Tomcat服务要用到" class="headerlink" title="3 JavaJDK ( Tomcat服务要用到 )"></a>3 JavaJDK ( Tomcat服务要用到 )</h2><p>先来简单的介绍一下，<br>Apache —— Apache软件基金会开发的一款开源网页服务器，具体可以google,baidu或者wiki<br>Tomcat —— 全称应该叫做 Apache Tomcat 也是Apache软件基金会开发的一款开源网页服务器，主要用于运行Jsp</p>
-<p>PHP站在Apache配置好</p>
-<p>Java Web 站在Tomcat配置好</p>
-<p>然后打开你的Apache配置文件（Linux上的Apache叫做httpd） 就是名字叫做 httpd.conf 的文件</p>
+<p>上一个VPS，采用的是 CentOS 6 的操作系统，因此，只写CentOS的方法。至于百度搜到遍地的方法，我相信知道些代码的人都知道国内那种搜索引擎搜索来搜索去都是Copy的结果，实际上是没有人真正自己试验过的。于是就变成了，很简单的事，被他们Copy而不加证实的代码越弄越糟，真的是不想吐槽了。<br>闲话不多说，开始正文</p>
+<h2 id="事前准备"><a href="#事前准备" class="headerlink" title="事前准备"></a>事前准备</h2><p>要做这件事，首先要安装</p>
+<h3 id="1-Apache"><a href="#1-Apache" class="headerlink" title="1 Apache"></a>1 Apache</h3><h3 id="2-Tomcat"><a href="#2-Tomcat" class="headerlink" title="2 Tomcat"></a>2 Tomcat</h3><h3 id="3-JavaJDK-Tomcat服务要用到"><a href="#3-JavaJDK-Tomcat服务要用到" class="headerlink" title="3 JavaJDK ( Tomcat服务要用到 )"></a>3 JavaJDK ( Tomcat服务要用到 )</h3>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/10/28/Apache-Tomcat实现同时运行JavaWeb和PHP/#more" rel="contents">
               阅读全文 &raquo;
