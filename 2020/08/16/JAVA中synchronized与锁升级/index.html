@@ -42,7 +42,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JAVA," />
 
 
 
@@ -58,15 +58,25 @@
 
 
 
-<meta name="description" content="人总是一面苟活着，一面织就神话">
-<meta property="og:type" content="website">
-<meta property="og:title" content="残心">
-<meta property="og:url" content="https://CodeCRH.com/page/3/index.html">
+<meta name="description" content="好久没有更新博客了，今天来写一写JAVA中多线程中的一个小知识点synchronized与锁升级
+权当是记一下笔记，以后自己忘记了可以看一下复习一下。
+synchronized关键字出现在程序涉及到多线程时，使用synchronized关键字进行加锁
+但是synchronized内部是怎么实现的呢，得一点点来剖析。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA中synchronized与锁升级">
+<meta property="og:url" content="https://CodeCRH.com/2020/08/16/JAVA中synchronized与锁升级/index.html">
 <meta property="og:site_name" content="残心">
-<meta property="og:description" content="人总是一面苟活着，一面织就神话">
+<meta property="og:description" content="好久没有更新博客了，今天来写一写JAVA中多线程中的一个小知识点synchronized与锁升级
+权当是记一下笔记，以后自己忘记了可以看一下复习一下。
+synchronized关键字出现在程序涉及到多线程时，使用synchronized关键字进行加锁
+但是synchronized内部是怎么实现的呢，得一点点来剖析。">
+<meta property="og:updated_time" content="2020-08-16T07:08:21.540Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="残心">
-<meta name="twitter:description" content="人总是一面苟活着，一面织就神话">
+<meta name="twitter:title" content="JAVA中synchronized与锁升级">
+<meta name="twitter:description" content="好久没有更新博客了，今天来写一写JAVA中多线程中的一个小知识点synchronized与锁升级
+权当是记一下笔记，以后自己忘记了可以看一下复习一下。
+synchronized关键字出现在程序涉及到多线程时，使用synchronized关键字进行加锁
+但是synchronized内部是怎么实现的呢，得一点点来剖析。">
 
 
 
@@ -87,10 +97,10 @@
 
 
 
-  <link rel="canonical" href="https://CodeCRH.com/page/3/"/>
+  <link rel="canonical" href="https://CodeCRH.com/2020/08/16/JAVA中synchronized与锁升级/"/>
 
 
-  <title> 残心 </title>
+  <title> JAVA中synchronized与锁升级 | 残心 </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -111,9 +121,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -184,9 +192,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -206,10 +214,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/10/28/给Hexo添加不同的评论功能/" itemprop="url">
-                  给Hexo添加不同的评论功能
-                </a>
+                JAVA中synchronized与锁升级
               
             
           </h1>
@@ -221,8 +226,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-28T15:24:26+08:00" content="2016-10-28">
-              2016-10-28
+            <time itemprop="dateCreated" datetime="2020-08-16T14:19:39+08:00" content="2020-08-16">
+              2020-08-16
             </time>
           </span>
 
@@ -249,142 +254,104 @@
       
 
       
-        
-          <p>  例行的在开头写一些和这篇文章没有什么关系的琐碎杂谈，对杂谈不感兴趣的可以跳过这个部分。<br>  最近还在给HEXO做优化，404界面什么的都暂时还没有，还真是简陋，罗马不是一天建成的，一点点来吧。就在写这篇博文的时候，收到了机房通知，10.31日，之前的樱花服务器就到期了，看来得去做点数据备份了。写这篇博文之前，晒微看了下之前的第一篇博文，受到了鼓励，说实话，很开心呢。<br>  闲话不多说，开始写正文。</p>
-<h2 id="首先，我们要谈一下，为什么要自定义评论。"><a href="#首先，我们要谈一下，为什么要自定义评论。" class="headerlink" title="首先，我们要谈一下，为什么要自定义评论。"></a>首先，我们要谈一下，为什么要自定义评论。</h2><p>  事实上, Hexo 的 NexT 主题已经集成了多说评论，这个多说评论。根据一些用户的使用反馈，会去收集用户的文章。虽然说官方对于这点也不避讳，写在用户协议之中，但是我个人还是蛮反感的。而至于 disqus 在中华人民共和国（港澳台除外）地区似乎就是不存在的……而且，大家千篇一律的使用多说评论，似乎也是太单调了，至少我随便搜索了一下文章，几乎都是使用多说评论的，毫无个性。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/28/给Hexo添加不同的评论功能/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+        <p>好久没有更新博客了，今天来写一写JAVA中多线程中的一个小知识点synchronized与锁升级</p>
+<p>权当是记一下笔记，以后自己忘记了可以看一下复习一下。</p>
+<p>synchronized关键字出现在程序涉及到多线程时，使用synchronized关键字进行加锁</p>
+<p>但是synchronized内部是怎么实现的呢，得一点点来剖析。</p>
+<a id="more"></a>
+<p>synchronized在 JDK 1.6 之前使用的是重量级锁，所谓重量级锁即是指使用操作系统OS提供的锁进行管控</p>
+<p>然而由于直接采用重量级锁的代价太大，而程序往往并不需要这么重量级别的锁就可以完成任务，重量级锁反而使得程序的效率降低了</p>
+<p>因此在之后的JDK版本中对其进行了改进，这里详细说一说现在采用的方式（这里默认以ORACLE的JVM —— hotspot 进行阐述）</p>
+<p>synchronized 关键字处理逻辑时候，JVM默认开启了偏向锁，</p>
+<p>所谓偏向锁是指，在markword中使用2个bit锁标志位(01)和1个1bit的偏向锁位标记的，出了所标志位和偏向锁位之外，</p>
+<p>markword中此时还纪录了当前线程的指针 JavaThread 用于区分不同线程</p>
+<p>若没有产生争抢的情况下，保持偏向锁状态直到结束。</p>
+<p>若产生争抢，则进行锁状态的升级，将偏向锁升级为轻量级锁（自旋锁），其实现原理为</p>
+<p>使用2bit的锁标志位（00）来代表，mardword中使用62位保存指向线程栈中Lock Record的指针</p>
+<p>此时采用的方式为自旋锁，所谓自旋锁，即为进行循环，默认循环10次若另一线程还未释放锁，则进行进一步锁升级</p>
+<p>此时，锁升级为重量级锁，即操作系统OS提供的锁，在markword中使用2bit锁标志位(10)指代</p>
+<p>并在markword中使用62位纪录只想互斥量的指针</p>
+<p>重量级锁本质上为采用汇编指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lock cmpxchg 指令</div></pre></td></tr></table></figure>
+<p>lock 用于在多核CPU中，采用lock指令时，其他CPU核心禁止对该值进行修改</p>
+<p>cmpxchg 即为采用CAS的方式修改变量值</p>
+<p>所谓CAS即为Compare and Swap，翻译为比较并交换，若内存中值不为目标值，则将内存中的值修改为目标值</p>
+<p>对象的markword中除了<br>01 偏向锁（也有人将此状态称之为 无锁）　　　　<br>00 轻量锁　　　　　<br>10 重量锁　　　　<br>之外还有一个2bit的锁标志位<br>11 GC废弃</p>
+<p>从markword中也可以轻松看出 synchronized 的锁升级方式为</p>
+<p>偏向锁 → 轻量锁 → 重量锁 </p>
+
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/26/浴火重生/" itemprop="url">
-                  浴火重生
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-26T22:16:18+08:00" content="2016-10-26">
-              2016-10-26
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/JAVA/" rel="tag">#JAVA</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>传说在古代的天方国，存在着凤与凰雌雄一对鸟。浴火之后，涅槃重生。想来和我的博客的命运是何其的相似。</p>
-<p>算上千年后开始写博客，这大概已经是第五个了。<br>第一个博客在美国加州机房，因为被DDos，终于还是放弃了。<br>第二个博客也是美国机房，解析时间实在是长到离谱，放弃x2<br>第三个博客，和我创办的第一个论坛一起，消失在了尘埃里。<br>第四个博客，事实上是在三个月前，一个黑色星期一，永远的躺在了某个防火墙的怀抱里，心疼用了一年多的樱花。<br>命途多舛，这是第五个博客，既然架在GITHUB上，大概闲话也就只会有这么一篇，多数都是一些学习心得了吧。<br>路漫漫其修远兮……</p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/10/给Hexo添加不同的评论功能-改/" rel="next" title="给Hexo添加不同的评论功能 改">
+                <i class="fa fa-chevron-left"></i> 给Hexo添加不同的评论功能 改
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+    <div class="post-spread">
+      
+    </div>
+  </div>
+	<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MDkzNy8xNzQ2Mg==">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
 
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 
 
           </div>
@@ -392,6 +359,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -411,8 +382,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/logo.png"
@@ -499,6 +479,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -602,6 +593,25 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+    <!--
+	<script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+	<script>
+		var cloudTieConfig = {
+		  url: document.location.href, 
+		  sourceId: "",
+		  productKey: "47e8fcfca74b4b7cb0f25de66661b33a",
+		  target: "cloud-tie-wrapper"
+		};
+		var yunManualLoad = true;
+		Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+	</script>
+	-->
+
+	
+
 
   
 
